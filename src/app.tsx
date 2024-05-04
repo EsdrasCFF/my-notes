@@ -21,9 +21,10 @@ export function App() {
 
       <div className='grid grid-cols-3 auto-rows-[250px] text-sm gap-6' >
         <NewNoteCard />
-        <NoteCard />
-        <NoteCard />
-        <NoteCard />
+        <NoteCard date={new Date()} content='Uma nova historia Deus tem pra mim' />
+        <NoteCard date={new Date('04/04/2024')} content='Uma nova historia Deus tem pra mim' />
+        <NoteCard date={new Date('02/02/2024')} content='Um novo tempo DEus tem pra mim' />
+        <NoteCard date={new Date('01/01/2024')} content='Tudo aquilo que perdido for, ouvirei de sua boca' />
       </div>
       
     </div>
