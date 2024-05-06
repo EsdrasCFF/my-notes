@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import logo from './assets/logo-my-notes.svg'
 import { NewNoteCard } from './components/new-note-card'
 import { NoteCard } from './components/note-card'
@@ -10,6 +10,8 @@ interface Note {
 }
 
 export function App() {
+  const [search, setSearch] = useState('')
+
   const [notes, setNotes] = useState<Note[]>(() => {
     const notes = localStorage.getItem('@my-notes/notes-array')
     if(!notes) {
@@ -18,6 +20,8 @@ export function App() {
 
     return JSON.parse(notes)
   })
+
+  const filteredNotes = search !== '' ? notes.filter((note) => note.content.toLocaleLowerCase().includes(search.toLocaleLowerCase())) : notes 
 
   function handleCreatedNote(content: string) {
     const newNote = {
@@ -33,6 +37,12 @@ export function App() {
     localStorage.setItem('@my-notes/notes-array', JSON.stringify(notesArray))
   }
 
+  function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+    const content = event.target.value
+
+    setSearch(content)
+  }
+
   return (
     <div className="mx-auto max-w-6xl my-12 space-y-6">
       <img src={logo} alt='NLW Export' />
@@ -42,6 +52,7 @@ export function App() {
           type='text' 
           placeholder='Busque em suas notas...' 
           className='w-full font-semibold bg-transparent text-3xl -tracking-tight outline-none placeholder:text-slate-500'
+          onChange={handleSearch}
         />
       </form>
 
@@ -49,7 +60,7 @@ export function App() {
 
       <div className='grid grid-cols-3 auto-rows-[250px] text-sm gap-6' >
         <NewNoteCard handleCreatedNote={handleCreatedNote} />
-        {notes.map((note) => (
+        {filteredNotes.map((note) => (
           <NoteCard content={note.content} date={note.date} key={note.id}  />
         ))}
       </div>

@@ -61,7 +61,7 @@ export function NewNoteCard({handleCreatedNote}: NewNoteCardProps) {
               ) : (
                 <textarea 
                   autoFocus
-                  className='text-sm leading-6 text-slate-400 bg-transparent resize-none outline-none'
+                  className='text-sm h-full leading-6 text-slate-400 bg-transparent resize-none outline-none'
                   onChange={(event) => handleContentChange(event)}
                   value={content}
                 />
