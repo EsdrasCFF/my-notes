@@ -7,9 +7,11 @@ import { X } from 'lucide-react';
 interface NoteCardProps {
   date: Date;
   content: string;
+  id: string;
+  handleDeletedNote: (id: string) => void
 }
 
-export function NoteCard({content, date}: NoteCardProps) {
+export function NoteCard({id, content, date, handleDeletedNote}: NoteCardProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className='flex flex-col  text-left text-sm bg-slate-800 rounded-md p-5 overflow-hidden relative outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400'>
@@ -22,7 +24,7 @@ export function NoteCard({content, date}: NoteCardProps) {
       <Dialog.Portal>
         <Dialog.Overlay className='inset-0 fixed bg-black/50' />
 
-        <Dialog.Content className='bg-slate-700 z-10 left-1/2 top-1/2 max-w-[640px] -translate-x-1/2 -translate-y-1/2  absolute w-full h-[60vh]  flex flex-col rounded-md overflow-hidden'>
+        <Dialog.Content className='bg-slate-700 inset-0 md:inset-auto z-10 md:left-1/2 md:top-1/2 md:max-w-[640px] md:-translate-x-1/2 md:-translate-y-1/2  absolute w-full h-[60vh]  flex flex-col md:rounded-md overflow-hidden'>
           <Dialog.DialogClose className='absolute top-0 right-0 bg-slate-800 text-slate-400 p-1' >
             <X width={15} height={15} />
           </Dialog.DialogClose>
@@ -33,7 +35,7 @@ export function NoteCard({content, date}: NoteCardProps) {
             <p className='mt-3 text-slate-400' >{content}</p>
           </div>
 
-          <button className='bg-slate-800 p-4 text-sm outline-none group font-semibold' >
+          <button className='bg-slate-800 p-4 text-sm outline-none group font-semibold'onClick={() => handleDeletedNote(id)} >
             Deseja <span className='text-red-400 group-hover:underline' > apagar essa nota? </span>
           </button>
         </Dialog.Content>
